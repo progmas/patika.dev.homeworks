@@ -90,7 +90,9 @@ uniq_menu.forEach((element) => {
   new_button = document.createElement('button');
   new_button.innerHTML = element;
   new_button.classList.add('btn','btn-outline-dark','btn-item');
-  // new_button.onclick = (element) => listMenu(this);
+  new_button.onclick = function(element){
+    listMenu(this.innerHTML);
+  };
   btnContainer.append(new_button);
 })
 
@@ -99,30 +101,20 @@ let selected_category = "All";
 function listMenu(_selected_category){
   items = document.querySelector('#items');
   _menu = menu.filter(function (x){
-    // console.log(x);
-     console.log(_selected_category);
     if (_selected_category == "All"){
       return x;  
     }
     else{
-      console.log(x);
-      console.log(x["category"]);
-      console.log(_selected_category);
-      console.log(x["category"] == _selected_category);
-      console.log("------------");
-      if (x["category"] == _selected_category){
-       return x
-      }
-      else {
-        return 'asdasd'
-      }
+      return x["category"] == _selected_category
     }
 
   })
+
+  items.innerHTML = "";
   _menu.forEach(function(x){
     let new_menu = document.createElement('div');
-    new_menu.innerHTML = `<div class="menu-items col-lg-6 col-sm-12">
-              <img src="${x["img"]}" alt="Chicken" ramen="" class="photo">
+    new_menu.classList.add("menu-items", "col-lg-6", "col-sm-12");
+    new_menu.innerHTML = `<img src="${x["img"]}" alt="Chicken" ramen="" class="photo">
               <div class="menu-info">
                 <div class="menu-title">
                   <h4>${x["title"]}</h4>
@@ -131,8 +123,7 @@ function listMenu(_selected_category){
                 <div class="menu-text">
                   ${x["desc"]}
                 </div>
-              </div>
-            </div>`;
+              </div>`;
     items.append(new_menu);
   })
 }
